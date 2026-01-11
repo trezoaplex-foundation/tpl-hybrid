@@ -18,7 +18,7 @@ import {
   deserializeAccount,
   gpaBuilder,
   publicKey as toPublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
@@ -27,7 +27,7 @@ import {
   string,
   struct,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 export type EscrowV2 = Account<EscrowV2AccountData>;
 
@@ -121,8 +121,8 @@ export function getEscrowV2GpaBuilder(
   context: Pick<Context, 'rpc' | 'programs'>
 ) {
   const programId = context.programs.getPublicKey(
-    'mplHybrid',
-    'MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
+    'tplHybrid',
+    'TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
   );
   return gpaBuilder(context, programId)
     .registerFields<{
@@ -150,8 +150,8 @@ export function findEscrowV2Pda(
   }
 ): Pda {
   const programId = context.programs.getPublicKey(
-    'mplHybrid',
-    'MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
+    'tplHybrid',
+    'TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
   );
   return context.eddsa.findPda(programId, [
     string({ size: 'variable' }).serialize('escrow'),

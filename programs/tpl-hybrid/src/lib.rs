@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use instructions::*;
 
-declare_id!("MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb");
+declare_id!("TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb");
 
 pub mod constants;
 pub mod error;
@@ -10,7 +10,7 @@ pub mod state;
 pub mod utils;
 
 #[program]
-pub mod mpl_hybrid {
+pub mod tpl_hybrid {
 
     use super::*;
 

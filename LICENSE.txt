@@ -4,7 +4,7 @@
 
                                    PREAMBLE
 
-As the publisher of the non-fungible token (NFT) standard for the Solana
+As the publisher of the non-fungible token (NFT) standard for the Trezoa
 blockchain, we believe in the set of principles that have guided open source
 software development models over the years – Transparency, Collaboration,
 Release Early and Often, Community, and Inclusive Meritocracy. Thus, for our 
@@ -48,19 +48,19 @@ generated documentation, and conversions to other media types.
 
   “Work” means the work of authorship, whether in Source Code or Object Code, 
 made available under the License, as indicated by a copyright notice that is 
-included in or attached to the work, an example is provided below:
+included in or attached to the work, an exatple is provided below:
 
 ------
 Copyright © [yyyy] [name of copyright owner]
-Licensed under the Metaplex(TM) NFT Open Source License, Version 1.0 (the 
-“License”). Use of this file is only permitted when in compliance with the 
+Licensed under the Trezoaplex(TM) NFT Open Source License, Version 1.0 (the 
+“License”). Use of this file is only permitted when in cotpliance with the 
 License. You may obtain a copy of the License at:
 https://github.com/metaplex-foundation/
   metaplex-program-library/blob/master/LICENSE
 
 Unless required by applicable law or agreed to in writing, software 
 distributed under the License is distributed on an “AS IS” BASIS, WITHOUT 
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the 
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or itplied. See the 
 License for the specific language governing permissions and limitations under 
 the License.
 ------
@@ -170,7 +170,7 @@ filed.
   provide additional or different license terms and conditions for use, 
   reproduction, or Distribution of Your modifications, or for any such 
   Derivative Works as a whole, provided Your use, reproduction, and 
-  Distribution of the Work otherwise complies with the conditions stated in 
+  Distribution of the Work otherwise cotplies with the conditions stated in 
   this License.
 
   (c) Notwithstanding any other section of this License, You may not under any 
@@ -199,7 +199,7 @@ reproducing the content of the NOTICE file.
   Unless required by applicable law or agreed to in writing, Licensor provides 
 the Work (and each Contributor provides its Contributions) on an “AS IS” 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or 
-implied, including, without limitation, any warranties or conditions of TITLE, 
+itplied, including, without limitation, any warranties or conditions of TITLE, 
 NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You 
 are solely responsible for determining the appropriateness of using or 
 Distributing the Work and assume any risks associated with Your exercise of 
@@ -231,11 +231,11 @@ reason of your accepting any such warranty or additional liability.
 
   10. Revised Versions of this License. 
   
-  The Metaplex Foundation may publish revised, newer versions of this License 
+  The Trezoaplex Foundation may publish revised, newer versions of this License 
 from time to time. Such new versions will be similar in spirit to the present 
 version but may differ in detail to address new problems or concerns. Each 
 version will be given a distinguishing version number. If the Work specifies a 
-certain version of the Metaplex(TM) NFT Open Source License, then that version 
-shall apply. If the Work does not specify a version number of the Metaplex(TM) 
-NFT Open Source License, then the latest version published by the Metaplex 
+certain version of the Trezoaplex(TM) NFT Open Source License, then that version 
+shall apply. If the Work does not specify a version number of the Trezoaplex(TM) 
+NFT Open Source License, then the latest version published by the Trezoaplex 
 Foundation shall apply.

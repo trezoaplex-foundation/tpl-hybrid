@@ -1,22 +1,22 @@
 import test from 'ava';
-import { generateSigner, publicKey } from '@metaplex-foundation/umi';
+import { generateSigner, publicKey } from '@trezoaplex-foundation/umi';
 import {
   createFungible,
   fetchDigitalAssetWithAssociatedToken,
   mintV1,
   TokenStandard,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   string,
   publicKey as publicKeySerializer,
-} from '@metaplex-foundation/umi/serializers';
-import { addCollectionPlugin, fetchAsset } from '@metaplex-foundation/mpl-core';
+} from '@trezoaplex-foundation/umi/serializers';
+import { addCollectionPlugin, fetchAsset } from '@trezoaplex-foundation/tpl-core';
 import {
   buildPath,
   EscrowV1,
   fetchEscrowV1,
   initEscrowV1,
-  MPL_HYBRID_PROGRAM_ID,
+  TPL_HYBRID_PROGRAM_ID,
   Path,
   releaseV1,
 } from '../../src';
@@ -39,7 +39,7 @@ test('it can swap an asset for tokens with reroll', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -149,7 +149,7 @@ test('it can swap an asset for tokens without reroll', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -239,7 +239,7 @@ test('it can swap an asset for tokens without reroll', async (t) => {
   t.is(assetAfter.owner, publicKey(escrow));
 
   // Make sure the URI has not changed.
-  t.is(assetAfter.uri, 'https://example.com/asset');
+  t.is(assetAfter.uri, 'https://exatple.com/asset');
 });
 
 test('it can swap an asset for tokens as UpdateDelegate with reroll', async (t) => {
@@ -259,7 +259,7 @@ test('it can swap an asset for tokens as UpdateDelegate with reroll', async (t) 
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -379,7 +379,7 @@ test('it can swap an asset for tokens as UpdateDelegate without reroll', async (
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -479,5 +479,5 @@ test('it can swap an asset for tokens as UpdateDelegate without reroll', async (
   t.is(assetAfter.owner, publicKey(escrow));
 
   // Make sure the URI has not changed.
-  t.is(assetAfter.uri, 'https://example.com/asset');
+  t.is(assetAfter.uri, 'https://exatple.com/asset');
 });

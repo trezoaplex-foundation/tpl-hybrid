@@ -6,7 +6,7 @@
  * @see https://github.com/metaplex-foundation/kinobi
  */
 
-import { findAssociatedTokenPda } from '@metaplex-foundation/mpl-toolbox';
+import { findAssociatedTokenPda } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   Context,
   Pda,
@@ -15,7 +15,7 @@ import {
   TransactionBuilder,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
@@ -25,7 +25,7 @@ import {
   u16,
   u64,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { findRecipeV1Pda } from '../accounts';
 import {
   ResolvedAccount,
@@ -118,8 +118,8 @@ export function initRecipeV1(
 ): TransactionBuilder {
   // Program ID.
   const programId = context.programs.getPublicKey(
-    'mplHybrid',
-    'MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
+    'tplHybrid',
+    'TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
   );
 
   // Accounts.

@@ -13,14 +13,14 @@ import {
   Signer,
   TransactionBuilder,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
   mapSerializer,
   struct,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { findEscrowV2Pda } from '../accounts';
 import {
   ResolvedAccount,
@@ -68,8 +68,8 @@ export function initEscrowV2(
 ): TransactionBuilder {
   // Program ID.
   const programId = context.programs.getPublicKey(
-    'mplHybrid',
-    'MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
+    'tplHybrid',
+    'TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
   );
 
   // Accounts.

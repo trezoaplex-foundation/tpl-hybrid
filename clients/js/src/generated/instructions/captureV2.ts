@@ -6,7 +6,7 @@
  * @see https://github.com/metaplex-foundation/kinobi
  */
 
-import { findAssociatedTokenPda } from '@metaplex-foundation/mpl-toolbox';
+import { findAssociatedTokenPda } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   Context,
   Pda,
@@ -15,14 +15,14 @@ import {
   TransactionBuilder,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
   mapSerializer,
   struct,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   ResolvedAccount,
   ResolvedAccountsWithIndices,
@@ -45,7 +45,7 @@ export type CaptureV2InstructionAccounts = {
   feeSolAccount?: PublicKey | Pda;
   feeProjectAccount: PublicKey | Pda;
   recentBlockhashes?: PublicKey | Pda;
-  mplCore?: PublicKey | Pda;
+  tplCore?: PublicKey | Pda;
   systemProgram?: PublicKey | Pda;
   tokenProgram?: PublicKey | Pda;
   associatedTokenProgram?: PublicKey | Pda;
@@ -83,8 +83,8 @@ export function captureV2(
 ): TransactionBuilder {
   // Program ID.
   const programId = context.programs.getPublicKey(
-    'mplHybrid',
-    'MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
+    'tplHybrid',
+    'TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
   );
 
   // Accounts.
@@ -154,10 +154,10 @@ export function captureV2(
       isWritable: false as boolean,
       value: input.recentBlockhashes ?? null,
     },
-    mplCore: {
+    tplCore: {
       index: 13,
       isWritable: false as boolean,
-      value: input.mplCore ?? null,
+      value: input.tplCore ?? null,
     },
     systemProgram: {
       index: 14,
@@ -211,8 +211,8 @@ export function captureV2(
       'SysvarS1otHashes111111111111111111111111111'
     );
   }
-  if (!resolvedAccounts.mplCore.value) {
-    resolvedAccounts.mplCore.value = publicKey(
+  if (!resolvedAccounts.tplCore.value) {
+    resolvedAccounts.tplCore.value = publicKey(
       'CoREENxT6tW1HoK8ypY1SxRMZTcVPm7R94rH4PZNhX7d'
     );
   }

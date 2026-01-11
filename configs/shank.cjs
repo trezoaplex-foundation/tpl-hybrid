@@ -1,11 +1,11 @@
 const path = require("path");
-const { generateIdl } = require("@metaplex-foundation/shank-js");
+const { generateIdl } = require("@trezoaplex-foundation/shank-js");
 
 const idlDir = path.join(__dirname, "..", "idls");
 const binaryInstallDir = path.join(__dirname, "..", ".crates");
 const programDir = path.join(__dirname, "..", "programs");
 
-// This IDL hook sets the authority account as a signer because Anchor does not support the concept of optional signers.
+// This IDL hook sets the authority account as a signer because Trezoa does not support the concept of optional signers.
 // This is overridden in the Kinobi config file by setting signer to optional so it remains optional in the generated clients.
 let idlHook = (idl) => {
     for (const instruction of idl.instructions) {
@@ -21,7 +21,7 @@ let idlHook = (idl) => {
 };
 
 generateIdl({
-    generator: "anchor",
+    generator: "trezoa",
     programName: "mpl_hybrid",
     programId: "MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb",
     idlDir,

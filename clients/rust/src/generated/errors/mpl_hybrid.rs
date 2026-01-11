@@ -28,8 +28,8 @@ pub enum MplHybridError {
     /// 6005 (0x1775) - Invalid SlotHash Program Account
     #[error("Invalid SlotHash Program Account")]
     InvalidSlotHash,
-    /// 6006 (0x1776) - Invalid MPL CORE Program Account
-    #[error("Invalid MPL CORE Program Account")]
+    /// 6006 (0x1776) - Invalid TPL CORE Program Account
+    #[error("Invalid TPL CORE Program Account")]
     InvalidMplCore,
     /// 6007 (0x1777) - Invalid Collection Account
     #[error("Invalid Collection Account")]
@@ -72,8 +72,8 @@ pub enum MplHybridError {
     ReleaseBlocked,
 }
 
-impl solana_program::program_error::PrintProgramError for MplHybridError {
+itpl trezoa_program::program_error::PrintProgramError for MplHybridError {
     fn print<E>(&self) {
-        solana_program::msg!(&self.to_string());
+        trezoa_program::msg!(&self.to_string());
     }
 }

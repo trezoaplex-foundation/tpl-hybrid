@@ -8,20 +8,20 @@ use anchor_lang::{
 };
 use anchor_lang::{prelude::*, system_program};
 use anchor_spl::associated_token::AssociatedToken;
+use anchor_spl::token;
 use anchor_spl::token::Mint;
-use anchor_spl::token::{self, Burn};
 use anchor_spl::token::{Token, Transfer};
 use arrayref::array_ref;
-use mpl_core::accounts::BaseAssetV1;
-use mpl_core::instructions::{
+use tpl_core::accounts::BaseAssetV1;
+use tpl_core::instructions::{
     TransferV1Cpi, TransferV1InstructionArgs, UpdateV1Cpi, UpdateV1InstructionArgs,
 };
-use mpl_core::types::UpdateAuthority;
-use mpl_utils::assert_signer;
-use solana_program::program::invoke;
+use tpl_core::types::UpdateAuthority;
+use tpl_utils::assert_signer;
+use trezoa_program::program::invoke;
 
 #[derive(Accounts)]
-pub struct CaptureV2Ctx<'info> {
+pub struct CaptureV1Ctx<'info> {
     #[account(mut)]
     owner: Signer<'info>,
 
@@ -32,22 +32,12 @@ pub struct CaptureV2Ctx<'info> {
     #[account(
         mut,
         seeds = [
-            "recipe".as_bytes(), 
+            "escrow".as_bytes(), 
             collection.key().as_ref()
             ],
-        bump=recipe.bump
+        bump=escrow.bump
     )]
-    recipe: Box<Account<'info, RecipeV1>>,
-
-    #[account(
-        mut,
-        seeds = [
-            "escrow".as_bytes(), 
-            recipe.authority.as_ref()
-            ],
-        bump=escrow.bump,
-    )]
-    escrow: Box<Account<'info, EscrowV2>>,
+    escrow: Box<Account<'info, EscrowV1>>,
 
     /// CHECK: We check the asset bellow
     #[account(mut)]
@@ -55,7 +45,7 @@ pub struct CaptureV2Ctx<'info> {
 
     /// CHECK: We check against escrow
     #[account(mut,
-        address = recipe.collection
+        address = escrow.collection
     )]
     collection: AccountInfo<'info>,
 
@@ -69,8 +59,7 @@ pub struct CaptureV2Ctx<'info> {
 
     /// CHECK: This is a user defined account
     #[account(
-        mut,
-        address = recipe.token @MplHybridError::InvalidMintAccount
+        address = escrow.token @MplHybridError::InvalidMintAccount
     )]
     token: Account<'info, Mint>,
 
@@ -80,13 +69,13 @@ pub struct CaptureV2Ctx<'info> {
 
     /// CHECK: We check against constant
     #[account(mut,
-        address = FEE_WALLET_V2 @ MplHybridError::InvalidConstantFeeWallet
+        address = FEE_WALLET_V1 @ MplHybridError::InvalidConstantFeeWallet
     )]
     fee_sol_account: AccountInfo<'info>,
 
-    /// CHECK: We check against recipe
+    /// CHECK: We check against escrow
     #[account(mut,
-        address = recipe.fee_location @ MplHybridError::InvalidProjectFeeWallet
+        address = escrow.fee_location @ MplHybridError::InvalidProjectFeeWallet
     )]
     fee_project_account: AccountInfo<'info>,
 
@@ -98,23 +87,22 @@ pub struct CaptureV2Ctx<'info> {
 
     /// CHECK: We check against constant
     #[account(
-        address = MPL_CORE @ MplHybridError::InvalidMplCore
+        address = TPL_CORE @ MplHybridError::InvalidMplCore
     )]
-    mpl_core: AccountInfo<'info>,
+    tpl_core: AccountInfo<'info>,
 
     system_program: Program<'info, System>,
     token_program: Program<'info, Token>,
     associated_token_program: Program<'info, AssociatedToken>,
 }
 
-pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
+pub fn handler_capture_v1(ctx: Context<CaptureV1Ctx>) -> Result<()> {
     let owner = &mut ctx.accounts.owner;
     let escrow = &mut ctx.accounts.escrow;
-    let recipe = &mut ctx.accounts.recipe;
     let asset = &mut ctx.accounts.asset;
     let authority = &mut ctx.accounts.authority;
     let collection = &mut ctx.accounts.collection;
-    let mpl_core = &mut ctx.accounts.mpl_core;
+    let tpl_core = &mut ctx.accounts.tpl_core;
     let user_token_account = &mut ctx.accounts.user_token_account;
     let escrow_token_account = &mut ctx.accounts.escrow_token_account;
     let fee_token_account = &mut ctx.accounts.fee_token_account;
@@ -127,14 +115,6 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
     let authority_info = &authority.to_account_info();
     let escrow_info = &escrow.to_account_info();
     let system_info = &system_program.to_account_info();
-
-    if recipe.authority != escrow.authority {
-        return Err(MplHybridError::InvalidAuthority.into());
-    }
-
-    if Path::BlockCapture.check(recipe.path) {
-        return Err(MplHybridError::CaptureBlocked.into());
-    }
 
     // The user token account should already exist.
     validate_token_account(user_token_account, &owner.key(), &ctx.accounts.token.key())?;
@@ -175,17 +155,17 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
 
     // We only fetch the Base assets because we only need to check the collection here.
     let asset_data = BaseAssetV1::from_bytes(&asset.to_account_info().data.borrow())?;
-    // Check that the collection that the asset is a part of is the one this recipe is configured for.
-    if asset_data.update_authority != UpdateAuthority::Collection(recipe.collection) {
+    // Check that the collection that the asset is a part of is the one this escrow is configured for.
+    if asset_data.update_authority != UpdateAuthority::Collection(escrow.collection) {
         return Err(MplHybridError::InvalidCollection.into());
     }
 
-    if authority_info.key == &recipe.authority {
-        assert_signer(authority)?;
+    if authority_info.key == &escrow.authority {
+        assert_signer(&ctx.accounts.authority)?;
     }
 
     //If the path has bit 0 unset, we need to update the metadata onchain
-    if !Path::NoRerollMetadata.check(recipe.path) {
+    if !Path::NoRerollMetadata.check(escrow.path) {
         let clock = Clock::get()?;
         // seed for the random number is a combination of the slot_hash - timestamp
         let recent_slothashes = &ctx.accounts.recent_blockhashes;
@@ -194,17 +174,17 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
 
         let seed = u64::from_le_bytes(*most_recent)
             .saturating_sub(clock.unix_timestamp as u64)
-            .wrapping_mul(recipe.count);
+            .wrapping_mul(escrow.count);
 
         // remainder is the random number between the min and max
         let remainder = seed
-            .checked_rem(recipe.max - recipe.min)
+            .checked_rem(escrow.max - escrow.min)
             .ok_or(MplHybridError::RandomnessError)?
-            + recipe.min;
+            + escrow.min;
 
         //construct the new uri
-        let mut uri = recipe.uri.clone();
-        let name = recipe.name.clone();
+        let mut uri = escrow.uri.clone();
+        let name = escrow.name.clone();
         let json_extension = ".json".to_string();
 
         uri.push_str(&remainder.to_string());
@@ -212,7 +192,7 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
 
         //create update instruction
         let update_ix = UpdateV1Cpi {
-            __program: &mpl_core.to_account_info(),
+            __program: &tpl_core.to_account_info(),
             asset: &asset.to_account_info(),
             collection: Some(collection_info),
             payer: &owner.to_account_info(),
@@ -226,12 +206,12 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
             },
         };
 
-        if authority_info.key == &recipe.authority {
+        if authority_info.key == &escrow.authority {
             //invoke the update instruction
             update_ix.invoke()?;
-        } else if authority_info.key == &recipe.key() {
+        } else if authority_info.key == &escrow.key() {
             // The auth has been delegated as the UpdateDelegate on the asset.
-            update_ix.invoke_signed(&[&[b"recipe", collection.key.as_ref(), &[recipe.bump]]])?;
+            update_ix.invoke_signed(&[&[b"escrow", collection.key.as_ref(), &[escrow.bump]]])?;
         } else {
             return Err(MplHybridError::InvalidUpdateAuthority.into());
         }
@@ -239,7 +219,7 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
 
     //create transfer instruction
     let transfer_nft_ix = TransferV1Cpi {
-        __program: &mpl_core.to_account_info(),
+        __program: &tpl_core.to_account_info(),
         asset: &asset.to_account_info(),
         collection: Some(collection_info),
         payer: &owner.to_account_info(),
@@ -253,36 +233,21 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
     };
 
     //invoke the transfer instruction with seeds
-    transfer_nft_ix.invoke_signed(&[&[b"escrow", recipe.authority.as_ref(), &[escrow.bump]]])?;
+    let _transfer_nft_result =
+        transfer_nft_ix.invoke_signed(&[&[b"escrow", collection.key.as_ref(), &[escrow.bump]]]);
 
     let cpi_program = token_program.to_account_info();
 
-    // If the path has burn on capture, we burn the token
-    if Path::BurnOnCapture.check(recipe.path) {
-        //create burn instruction
-        let cpi_accounts_burn = Burn {
-            mint: ctx.accounts.token.to_account_info(),
-            from: user_token_account.to_account_info(),
-            authority: owner.to_account_info(),
-        };
+    //create transfer token instruction
+    let cpi_accounts_transfer = Transfer {
+        from: user_token_account.to_account_info(),
+        to: escrow_token_account.to_account_info(),
+        authority: owner.to_account_info(),
+    };
 
-        let burn_cpi_ctx = CpiContext::new(cpi_program.clone(), cpi_accounts_burn);
+    let transfer_cpi_ctx = CpiContext::new(cpi_program.clone(), cpi_accounts_transfer);
 
-        token::burn(burn_cpi_ctx, recipe.amount)?;
-    }
-    // Otherwise, we transfer the token to the escrow
-    else {
-        //create transfer token instruction
-        let cpi_accounts_transfer = Transfer {
-            from: user_token_account.to_account_info(),
-            to: escrow_token_account.to_account_info(),
-            authority: owner.to_account_info(),
-        };
-
-        let transfer_cpi_ctx = CpiContext::new(cpi_program.clone(), cpi_accounts_transfer);
-
-        token::transfer(transfer_cpi_ctx, recipe.amount)?;
-    }
+    token::transfer(transfer_cpi_ctx, escrow.amount)?;
 
     //create transfer fee token instruction
     let cpi_accounts_fee_transfer = Transfer {
@@ -293,10 +258,10 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
 
     let transfer_fees_cpi_ctx = CpiContext::new(cpi_program.clone(), cpi_accounts_fee_transfer);
 
-    token::transfer(transfer_fees_cpi_ctx, recipe.fee_amount_capture)?;
+    token::transfer(transfer_fees_cpi_ctx, escrow.fee_amount)?;
 
     //create protocol transfer fee sol instruction
-    let sol_fee_ix = anchor_lang::solana_program::system_instruction::transfer(
+    let sol_fee_ix = anchor_lang::trezoa_program::system_instruction::transfer(
         &owner.key(),
         &fee_sol_account.key(),
         get_protocol_fee()?,
@@ -309,10 +274,10 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
     )?;
 
     //create project transfer fee sol instruction for project
-    let sol_fee_project_ix = anchor_lang::solana_program::system_instruction::transfer(
+    let sol_fee_project_ix = anchor_lang::trezoa_program::system_instruction::transfer(
         &owner.key(),
         &fee_project_account.key(),
-        recipe.sol_fee_amount_capture,
+        escrow.sol_fee_amount,
     );
 
     //invoke project the transfer fee sol instruction for project
@@ -325,7 +290,7 @@ pub fn handler_capture_v2(ctx: Context<CaptureV2Ctx>) -> Result<()> {
     )?;
 
     //increment the swap count
-    recipe.count += 1;
+    escrow.count += 1;
 
     Ok(())
 }

@@ -9,7 +9,7 @@ pub enum Path {
     BurnOnRelease,
 }
 
-impl Path {
+itpl Path {
     pub fn check(self, bits: u16) -> bool {
         bits & (1 << (self as u16)) != 0
     }

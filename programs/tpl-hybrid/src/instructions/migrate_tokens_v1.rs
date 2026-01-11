@@ -10,7 +10,7 @@ use anchor_spl::associated_token::AssociatedToken;
 use anchor_spl::token;
 use anchor_spl::token::Mint;
 use anchor_spl::token::{Token, Transfer};
-use solana_program::system_program;
+use trezoa_program::system_program;
 
 #[derive(AnchorSerialize, AnchorDeserialize)]
 pub struct MigrateTokensV1Ix {
@@ -92,7 +92,7 @@ pub fn handler_migrate_tokens_v1(
 
     // Create idempotent
     if escrow_new_token_account.owner == &system_program::ID {
-        solana_program::msg!("Creating user token account");
+        trezoa_program::msg!("Creating user token account");
         create_associated_token_account(
             authority,
             &escrow_new.to_account_info(),

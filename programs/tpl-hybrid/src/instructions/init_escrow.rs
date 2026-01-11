@@ -1,46 +1,44 @@
-use crate::constants::MPL_CORE;
+use crate::constants::TPL_CORE;
 use crate::error::MplHybridError;
 use crate::state::*;
 use anchor_lang::{prelude::*, Discriminator};
 use anchor_spl::associated_token::AssociatedToken;
 use anchor_spl::token::{Mint, Token, TokenAccount};
-use mpl_core::accounts::BaseCollectionV1;
-use mpl_core::load_key;
-use mpl_core::types::Key as MplCoreKey;
-use mpl_utils::create_or_allocate_account_raw;
-use solana_program::program_memory::sol_memcpy;
+use tpl_core::accounts::BaseCollectionV1;
+use tpl_core::load_key;
+use tpl_core::types::Key as MplCoreKey;
+use tpl_utils::create_or_allocate_account_raw;
+use trezoa_program::program_memory::sol_memcpy;
 
 #[derive(AnchorSerialize, AnchorDeserialize)]
-pub struct InitRecipeV1Ix {
+pub struct InitEscrowV1Ix {
     name: String,
     uri: String,
     max: u64,
     min: u64,
     amount: u64,
-    fee_amount_capture: u64,
-    fee_amount_release: u64,
-    sol_fee_amount_capture: u64,
-    sol_fee_amount_release: u64,
+    fee_amount: u64,
+    sol_fee_amount: u64,
     path: u16,
 }
 
 #[derive(Accounts)]
-pub struct InitRecipeV1Ctx<'info> {
+pub struct InitEscrowV1Ctx<'info> {
     /// CHECK: This account is checked and initialized in the handler.
     #[account(
         mut,
         seeds = [
-            "recipe".as_bytes(), 
+            "escrow".as_bytes(), 
             collection.key().as_ref()
             ],
         bump,
     )]
-    recipe: AccountInfo<'info>,
+    escrow: AccountInfo<'info>,
 
     #[account(mut)]
     authority: Signer<'info>,
 
-    /// CHECK: We check the collection bellow and with recipe seeds
+    /// CHECK: We check the collection bellow and with escrow seeds
     collection: UncheckedAccount<'info>,
 
     /// CHECK: This is a user defined account
@@ -63,18 +61,18 @@ pub struct InitRecipeV1Ctx<'info> {
     associated_token_program: Program<'info, AssociatedToken>,
 }
 
-pub fn handler_init_recipe_v1(ctx: Context<InitRecipeV1Ctx>, ix: InitRecipeV1Ix) -> Result<()> {
-    let recipe = &mut ctx.accounts.recipe;
+pub fn handler_init_escrow_v1(ctx: Context<InitEscrowV1Ctx>, ix: InitEscrowV1Ix) -> Result<()> {
+    let escrow = &mut ctx.accounts.escrow;
     create_or_allocate_account_raw(
         crate::ID,
-        recipe,
+        escrow,
         &ctx.accounts.system_program.to_account_info(),
         &ctx.accounts.authority.to_account_info(),
-        RecipeV1::BASE_RECIPE_SIZE + ix.name.len() + ix.uri.len(),
+        EscrowV1::BASE_ESCROW_SIZE + ix.name.len() + ix.uri.len(),
         &[
-            "recipe".as_bytes(),
+            "escrow".as_bytes(),
             &ctx.accounts.collection.key.to_bytes(),
-            &[ctx.bumps.recipe],
+            &[ctx.bumps.escrow],
         ],
     )?;
 
@@ -88,7 +86,7 @@ pub fn handler_init_recipe_v1(ctx: Context<InitRecipeV1Ctx>, ix: InitRecipeV1Ix)
         return Err(MplHybridError::MaxMustBeGreaterThanMin.into());
     }
 
-    if *collection.owner != MPL_CORE
+    if *collection.owner != TPL_CORE
         || load_key(&collection.to_account_info(), 0)? != MplCoreKey::CollectionV1
     {
         return Err(MplHybridError::InvalidCollectionAccount.into());
@@ -98,15 +96,15 @@ pub fn handler_init_recipe_v1(ctx: Context<InitRecipeV1Ctx>, ix: InitRecipeV1Ix)
     let collection_data =
         BaseCollectionV1::from_bytes(&collection.to_account_info().data.borrow())?;
 
-    // Check that the collection authority is the same as the recipe authority.
+    // Check that the collection authority is the same as the escrow authority.
     if collection_data.update_authority != authority.key() {
         return Err(MplHybridError::InvalidCollectionAuthority.into());
     }
 
     //initialize with input data
-    let mut recipe_data = RecipeV1::DISCRIMINATOR.to_vec();
-    recipe_data.extend(
-        RecipeV1 {
+    let mut escrow_data = EscrowV1::DISCRIMINATOR.to_vec();
+    escrow_data.extend(
+        EscrowV1 {
             collection: collection.key(),
             authority: authority.key(),
             token: token.key(),
@@ -116,19 +114,17 @@ pub fn handler_init_recipe_v1(ctx: Context<InitRecipeV1Ctx>, ix: InitRecipeV1Ix)
             max: ix.max,
             min: ix.min,
             amount: ix.amount,
-            fee_amount_capture: ix.fee_amount_capture,
-            sol_fee_amount_capture: ix.sol_fee_amount_capture,
-            fee_amount_release: ix.fee_amount_release,
-            sol_fee_amount_release: ix.sol_fee_amount_release,
+            fee_amount: ix.fee_amount,
+            sol_fee_amount: ix.sol_fee_amount,
             count: 1,
             path: ix.path,
-            bump: ctx.bumps.recipe,
+            bump: ctx.bumps.escrow,
         }
         .try_to_vec()?,
     );
 
-    let mut recipe_data_borrowed = recipe.data.borrow_mut();
-    sol_memcpy(&mut recipe_data_borrowed, &recipe_data, recipe_data.len());
+    let mut escrow_data_borrowed = escrow.data.borrow_mut();
+    sol_memcpy(&mut escrow_data_borrowed, &escrow_data, escrow_data.len());
 
     Ok(())
 }

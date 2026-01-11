@@ -1,29 +1,29 @@
 # Mpl Hybrid
 
-The swap program powering SPL-404s on Solana and the MPL-404 protocol. A collaboration between Mutant Labs and Metaplex.
+The swap program powering TPL-404s on Trezoa and the TPL-404 protocol. A collaboration between Mutant Labs and Trezoaplex.
 
 ## Documentation
 
-Read the full documentation [here](https://developers.metaplex.com/mpl-404)
+Read the full documentation [here](https://developers.trezoaplex.com/tpl-404)
 
 ## Programs
 
-This project contains the following programs:
+This trezoa contains the following programs:
 
-- [Mpl Hybrid](./programs/mpl-hybrid/README.md) `MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb`
+- [Mpl Hybrid](./programs/tpl-hybrid/README.md) `TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb`
 
 You will need a Rust version compatible with BPF to compile the program, currently we recommend using Rust 1.75.0.
 
 ## Clients
 
-This project contains the following clients:
+This trezoa contains the following clients:
 
 - [JavaScript](./clients/js/README.md)
 - [Rust](./clients/rust/README.md)
 
 ## Contributing
 
-Check out the [Contributing Guide](./CONTRIBUTING.md) the learn more about how to contribute to this project.
+Check out the [Contributing Guide](./CONTRIBUTING.md) the learn more about how to contribute to this trezoa.
 
 ## Security
 

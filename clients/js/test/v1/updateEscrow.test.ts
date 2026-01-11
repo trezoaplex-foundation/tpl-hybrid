@@ -1,19 +1,19 @@
-import { fetchAsset, transfer } from '@metaplex-foundation/mpl-core';
+import { fetchAsset, transfer } from '@trezoaplex-foundation/tpl-core';
 import {
   createFungible,
   fetchDigitalAssetWithAssociatedToken,
   mintV1,
   TokenStandard,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   findAssociatedTokenPda,
   SPL_ASSOCIATED_TOKEN_PROGRAM_ID,
-} from '@metaplex-foundation/mpl-toolbox';
-import { generateSigner, publicKey } from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/tpl-toolbox';
+import { generateSigner, publicKey } from '@trezoaplex-foundation/umi';
 import {
   publicKey as publicKeySerializer,
   string,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import test from 'ava';
 import {
   buildPath,
@@ -22,7 +22,7 @@ import {
   EscrowV1,
   fetchEscrowV1,
   initEscrowV1,
-  MPL_HYBRID_PROGRAM_ID,
+  TPL_HYBRID_PROGRAM_ID,
   Path,
   updateEscrowV1,
 } from '../../src';
@@ -45,7 +45,7 @@ test('it can update an escrow', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -123,7 +123,7 @@ test('it can update an escrow with a longer name and uri', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -210,7 +210,7 @@ test('it can update an escrow with a shortner name and uri', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -298,7 +298,7 @@ test('it can update an escrow path if escrow swap count is at 1', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -381,7 +381,7 @@ test('it will fail to update escrow Path if escrow swap count is greater than 1'
     amount: 1000,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);

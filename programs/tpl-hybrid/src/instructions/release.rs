@@ -11,14 +11,14 @@ use anchor_spl::associated_token::AssociatedToken;
 use anchor_spl::token;
 use anchor_spl::token::Mint;
 use anchor_spl::token::{Token, Transfer};
-use mpl_core::accounts::BaseAssetV1;
-use mpl_core::instructions::{
+use tpl_core::accounts::BaseAssetV1;
+use tpl_core::instructions::{
     TransferV1Cpi, TransferV1InstructionArgs, UpdateV1Cpi, UpdateV1InstructionArgs,
 };
-use mpl_core::types::UpdateAuthority;
-use mpl_utils::assert_signer;
-use solana_program::program::invoke;
-use solana_program::system_program;
+use tpl_core::types::UpdateAuthority;
+use tpl_utils::assert_signer;
+use trezoa_program::program::invoke;
+use trezoa_program::system_program;
 
 #[derive(Accounts)]
 pub struct ReleaseV1Ctx<'info> {
@@ -87,9 +87,9 @@ pub struct ReleaseV1Ctx<'info> {
 
     /// CHECK: We check against constant
     #[account(
-        address = MPL_CORE @ MplHybridError::InvalidMplCore
+        address = TPL_CORE @ MplHybridError::InvalidMplCore
     )]
-    mpl_core: AccountInfo<'info>,
+    tpl_core: AccountInfo<'info>,
     system_program: Program<'info, System>,
     token_program: Program<'info, Token>,
     associated_token_program: Program<'info, AssociatedToken>,
@@ -103,7 +103,7 @@ pub fn handler_release_v1(ctx: Context<ReleaseV1Ctx>) -> Result<()> {
     let asset = &mut ctx.accounts.asset;
     let authority = &mut ctx.accounts.authority;
     let collection = &mut ctx.accounts.collection;
-    let mpl_core = &mut ctx.accounts.mpl_core;
+    let tpl_core = &mut ctx.accounts.tpl_core;
     let user_token_account = &mut ctx.accounts.user_token_account;
     let escrow_token_account = &mut ctx.accounts.escrow_token_account;
     let fee_token_account = &mut ctx.accounts.fee_token_account;
@@ -119,7 +119,7 @@ pub fn handler_release_v1(ctx: Context<ReleaseV1Ctx>) -> Result<()> {
 
     // Create idempotent
     if user_token_account.owner == &system_program::ID {
-        solana_program::msg!("Creating user token account");
+        trezoa_program::msg!("Creating user token account");
         create_associated_token_account(
             owner,
             owner,
@@ -179,7 +179,7 @@ pub fn handler_release_v1(ctx: Context<ReleaseV1Ctx>) -> Result<()> {
 
         //create update instruction
         let update_ix = UpdateV1Cpi {
-            __program: &mpl_core.to_account_info(),
+            __program: &tpl_core.to_account_info(),
             asset: &asset.to_account_info(),
             collection: Some(collection_info),
             payer: &owner.to_account_info(),
@@ -206,7 +206,7 @@ pub fn handler_release_v1(ctx: Context<ReleaseV1Ctx>) -> Result<()> {
 
     //create transfer instruction
     let transfer_nft_ix = TransferV1Cpi {
-        __program: &mpl_core.to_account_info(),
+        __program: &tpl_core.to_account_info(),
         asset: &asset.to_account_info(),
         collection: Some(collection_info),
         payer: &owner.to_account_info(),
@@ -241,7 +241,7 @@ pub fn handler_release_v1(ctx: Context<ReleaseV1Ctx>) -> Result<()> {
     token::transfer(transfer_cpi_ctx, escrow.amount)?;
 
     //create protocol transfer fee sol instruction
-    let sol_fee_ix = anchor_lang::solana_program::system_instruction::transfer(
+    let sol_fee_ix = anchor_lang::trezoa_program::system_instruction::transfer(
         &owner.key(),
         &fee_sol_account.key(),
         get_protocol_fee()?,
@@ -254,7 +254,7 @@ pub fn handler_release_v1(ctx: Context<ReleaseV1Ctx>) -> Result<()> {
     )?;
 
     //create project transfer fee sol instruction for project
-    let sol_fee_project_ix = anchor_lang::solana_program::system_instruction::transfer(
+    let sol_fee_project_ix = anchor_lang::trezoa_program::system_instruction::transfer(
         &owner.key(),
         &fee_project_account.key(),
         escrow.sol_fee_amount,

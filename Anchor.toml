@@ -1,9 +1,9 @@
 [programs.Devnet]
-mpl-hybrid = "MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb"
+tpl-hybrid = "TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb"
 
 [provider]
 cluster = "localnet"
-wallet = "~/.config/solana/id.json"
+wallet = "~/.config/trezoa/id.json"
 
 [profile.release]
 overflow-checks = true # Enable integer overflow checks.

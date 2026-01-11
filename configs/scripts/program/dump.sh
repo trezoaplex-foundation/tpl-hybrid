@@ -1,7 +1,7 @@
 #!/bin/bash
 
 EXTERNAL_ID=("CoREENxT6tW1HoK8ypY1SxRMZTcVPm7R94rH4PZNhX7d" "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s" "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg" "SysExL2WDyJi9aRZrXorrjHJut3JwHQ7R9bTyctbNNG" "TokExjvjJmhKaRBShsBAsbSvEWMA1AgUNK7ps4SAc2p" "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb")
-EXTERNAL_SO=("mpl_core_program.so" "mpl_token_metadata.so" "mpl_token_auth_rules.so" "mpl_system_extras.so" "mpl_token_extras.so" "spl_token_2022.so")
+EXTERNAL_SO=("mpl_core_program.so" "mpl_token_metadata.so" "mpl_token_auth_rules.so" "mpl_system_extras.so" "mpl_token_extras.so" "tpl_token_2022.so")
 
 # output colours
 RED() { echo $'\e[1;31m'$1$'\e[0m'; }
@@ -16,7 +16,7 @@ cd $(dirname $(dirname $(dirname $SCRIPT_DIR)))
 OUTPUT=$1
 
 if [ -z ${RPC+x} ]; then
-    RPC="https://api.mainnet-beta.solana.com"
+    RPC="https://api.mainnet-beta.trezoa.com"
 fi
 
 if [ -z "$OUTPUT" ]; then
@@ -41,10 +41,10 @@ copy_from_chain() {
 
     case "$ACCOUNT_TYPE" in
         "bin")
-            solana account -u $RPC ${EXTERNAL_ID[$i]} -o ${OUTPUT}/$2$1 > /dev/null
+            trezoa account -u $RPC ${EXTERNAL_ID[$i]} -o ${OUTPUT}/$2$1 > /dev/null
             ;;
         "so")
-            solana program dump -u $RPC ${EXTERNAL_ID[$i]} ${OUTPUT}/$2$1 > /dev/null
+            trezoa program dump -u $RPC ${EXTERNAL_ID[$i]} ${OUTPUT}/$2$1 > /dev/null
             ;;
         *)
             echo $(RED "[  ERROR  ] unknown account type for '$1'")

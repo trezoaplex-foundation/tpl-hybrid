@@ -1,15 +1,15 @@
-import { fetchAsset, transfer } from '@metaplex-foundation/mpl-core';
+import { fetchAsset, transfer } from '@trezoaplex-foundation/tpl-core';
 import {
   createFungible,
   fetchDigitalAssetWithAssociatedToken,
   mintV1,
   TokenStandard,
-} from '@metaplex-foundation/mpl-token-metadata';
-import { generateSigner, publicKey } from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/tpl-token-metadata';
+import { generateSigner, publicKey } from '@trezoaplex-foundation/umi';
 import {
   publicKey as publicKeySerializer,
   string,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import test from 'ava';
 import {
   buildPath,
@@ -19,7 +19,7 @@ import {
   fetchRecipeV1,
   initEscrowV2,
   initRecipeV1,
-  MPL_HYBRID_PROGRAM_ID,
+  TPL_HYBRID_PROGRAM_ID,
   Path,
   updateRecipeV1,
 } from '../../src';
@@ -51,7 +51,7 @@ test('it can update a recipe basic data', async (t) => {
 
   await initEscrowV2(umi, {}).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);
@@ -72,7 +72,7 @@ test('it can update a recipe basic data', async (t) => {
     }).sendAndConfirm(umi);
   }
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -179,7 +179,7 @@ test('it can update a recipe path if recipe swap count === 1', async (t) => {
 
   await initEscrowV2(umi, {}).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);
@@ -200,7 +200,7 @@ test('it can update a recipe path if recipe swap count === 1', async (t) => {
     }).sendAndConfirm(umi);
   }
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -308,7 +308,7 @@ test('it fails to update a recipe path if recipe swap count > 1', async (t) => {
 
   await initEscrowV2(umi, {}).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);
@@ -329,7 +329,7 @@ test('it fails to update a recipe path if recipe swap count > 1', async (t) => {
     }).sendAndConfirm(umi);
   }
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);

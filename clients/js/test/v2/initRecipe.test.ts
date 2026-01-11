@@ -1,15 +1,15 @@
 import test from 'ava';
-import { generateSigner, publicKey } from '@metaplex-foundation/umi';
+import { generateSigner, publicKey } from '@trezoaplex-foundation/umi';
 import {
   string,
   publicKey as publicKeySerializer,
-} from '@metaplex-foundation/umi/serializers';
-import { createFungible } from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/umi/serializers';
+import { createFungible } from '@trezoaplex-foundation/tpl-token-metadata';
 import { createCoreCollection, createUmi } from '../_setup';
 import {
   fetchRecipeV1,
   initRecipeV1,
-  MPL_HYBRID_PROGRAM_ID,
+  TPL_HYBRID_PROGRAM_ID,
   Path,
 } from '../../src';
 
@@ -30,7 +30,7 @@ test('it can initialize the recipe', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);

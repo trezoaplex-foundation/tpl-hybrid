@@ -18,7 +18,7 @@ import {
   deserializeAccount,
   gpaBuilder,
   publicKey as toPublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
@@ -29,7 +29,7 @@ import {
   u16,
   u64,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 export type RecipeV1 = Account<RecipeV1AccountData>;
 
@@ -168,8 +168,8 @@ export function getRecipeV1GpaBuilder(
   context: Pick<Context, 'rpc' | 'programs'>
 ) {
   const programId = context.programs.getPublicKey(
-    'mplHybrid',
-    'MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
+    'tplHybrid',
+    'TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
   );
   return gpaBuilder(context, programId)
     .registerFields<{
@@ -221,8 +221,8 @@ export function findRecipeV1Pda(
   }
 ): Pda {
   const programId = context.programs.getPublicKey(
-    'mplHybrid',
-    'MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
+    'tplHybrid',
+    'TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'
   );
   return context.eddsa.findPda(programId, [
     string({ size: 'variable' }).serialize('recipe'),

@@ -32,7 +32,7 @@ pub struct EscrowV1 {
     pub bump: u8,
 }
 
-impl EscrowV1 {
+itpl EscrowV1 {
     pub const BASE_ESCROW_SIZE: usize =
         8 + 32 + 32 + 32 + 32 + 4 + 4 + 8 + 8 + 8 + 8 + 8 + 8 + 2 + 1;
 }

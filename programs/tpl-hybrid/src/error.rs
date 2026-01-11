@@ -26,8 +26,8 @@ pub enum MplHybridError {
     #[msg("Invalid SlotHash Program Account")]
     InvalidSlotHash,
 
-    /// 6006 (0x1776) - Invalid MPL CORE Program Account
-    #[msg("Invalid MPL CORE Program Account")]
+    /// 6006 (0x1776) - Invalid TPL CORE Program Account
+    #[msg("Invalid TPL CORE Program Account")]
     InvalidMplCore,
 
     /// 6007 (0x1777) - Invalid Collection Account

@@ -5,6 +5,6 @@
 //! [https://github.com/metaplex-foundation/kinobi]
 //!
 
-pub(crate) mod mpl_hybrid;
+pub(crate) mod tpl_hybrid;
 
-pub use self::mpl_hybrid::MplHybridError;
+pub use self::tpl_hybrid::MplHybridError;

@@ -11,19 +11,19 @@ import {
   Context,
   Program,
   PublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   getMplHybridErrorFromCode,
   getMplHybridErrorFromName,
 } from '../errors';
 
-export const MPL_HYBRID_PROGRAM_ID =
-  'MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb' as PublicKey<'MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'>;
+export const TPL_HYBRID_PROGRAM_ID =
+  'TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb' as PublicKey<'TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb'>;
 
 export function createMplHybridProgram(): Program {
   return {
-    name: 'mplHybrid',
-    publicKey: MPL_HYBRID_PROGRAM_ID,
+    name: 'tplHybrid',
+    publicKey: TPL_HYBRID_PROGRAM_ID,
     getErrorFromCode(code: number, cause?: Error) {
       return getMplHybridErrorFromCode(code, this, cause);
     },
@@ -40,7 +40,7 @@ export function getMplHybridProgram<T extends Program = Program>(
   context: Pick<Context, 'programs'>,
   clusterFilter?: ClusterFilter
 ): T {
-  return context.programs.get<T>('mplHybrid', clusterFilter);
+  return context.programs.get<T>('tplHybrid', clusterFilter);
 }
 
 export function getMplHybridProgramId(
@@ -48,8 +48,8 @@ export function getMplHybridProgramId(
   clusterFilter?: ClusterFilter
 ): PublicKey {
   return context.programs.getPublicKey(
-    'mplHybrid',
-    MPL_HYBRID_PROGRAM_ID,
+    'tplHybrid',
+    TPL_HYBRID_PROGRAM_ID,
     clusterFilter
   );
 }

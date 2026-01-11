@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["programs/mpl-hybrid", "clients/rust"]
+members = ["programs/tpl-hybrid", "clients/rust"]
 
 [profile.release]
 overflow-checks = true # Enable integer overflow checks.

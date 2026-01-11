@@ -1,16 +1,16 @@
 import test from 'ava';
-import { generateSigner } from '@metaplex-foundation/umi';
+import { generateSigner } from '@trezoaplex-foundation/umi';
 import {
   string,
   publicKey as publicKeySerializer,
-} from '@metaplex-foundation/umi/serializers';
-import { createFungible } from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/umi/serializers';
+import { createFungible } from '@trezoaplex-foundation/tpl-token-metadata';
 import { createUmi } from '../_setup';
 import {
   EscrowV2,
   fetchEscrowV2,
   initEscrowV2,
-  MPL_HYBRID_PROGRAM_ID,
+  TPL_HYBRID_PROGRAM_ID,
 } from '../../src';
 
 test('it can initialize the escrow', async (t) => {
@@ -28,7 +28,7 @@ test('it can initialize the escrow', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);

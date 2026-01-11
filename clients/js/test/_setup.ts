@@ -1,32 +1,32 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { createUmi as basecreateUmi } from '@metaplex-foundation/umi-bundle-tests';
+import { createUmi as basecreateUmi } from '@trezoaplex-foundation/umi-bundle-tests';
 import {
   AssetV1,
   create,
   createCollection,
   fetchAsset,
   fetchCollection,
-  mplCore,
-} from '@metaplex-foundation/mpl-core';
-import { generateSigner, PublicKey, Umi } from '@metaplex-foundation/umi';
-import { mplTokenMetadata } from '@metaplex-foundation/mpl-token-metadata';
-import { mplHybrid } from '../src';
+  tplCore,
+} from '@trezoaplex-foundation/tpl-core';
+import { generateSigner, PublicKey, Umi } from '@trezoaplex-foundation/umi';
+import { tplTokenMetadata } from '@trezoaplex-foundation/tpl-token-metadata';
+import { tplHybrid } from '../src';
 
 export const DEFAULT_ASSET = {
   name: 'Test Asset',
-  uri: 'https://example.com/asset',
+  uri: 'https://exatple.com/asset',
 };
 
 export const DEFAULT_COLLECTION = {
   name: 'Test Collection',
-  uri: 'https://example.com/collection',
+  uri: 'https://exatple.com/collection',
 };
 
 export const createUmi = async () =>
   (await basecreateUmi())
-    .use(mplHybrid())
-    .use(mplCore())
-    .use(mplTokenMetadata());
+    .use(tplHybrid())
+    .use(tplCore())
+    .use(tplTokenMetadata());
 
 export async function createCoreCollection(umi: Umi, owner?: PublicKey) {
   const collectionAddress = generateSigner(umi);

@@ -1,7 +1,7 @@
-import { UmiPlugin } from '@metaplex-foundation/umi';
+import { UmiPlugin } from '@trezoaplex-foundation/umi';
 import { createMplHybridProgram } from './generated';
 
-export const mplHybrid = (): UmiPlugin => ({
+export const tplHybrid = (): UmiPlugin => ({
   install(umi) {
     umi.programs.add(createMplHybridProgram(), false);
   },

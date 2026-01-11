@@ -1,7 +1,7 @@
 use crate::state::*;
 use anchor_lang::{prelude::*, Discriminator};
-use mpl_utils::create_or_allocate_account_raw;
-use solana_program::program_memory::sol_memcpy;
+use tpl_utils::create_or_allocate_account_raw;
+use trezoa_program::program_memory::sol_memcpy;
 
 #[derive(Accounts)]
 pub struct InitEscrowV2Ctx<'info> {

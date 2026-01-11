@@ -9,7 +9,7 @@ function getProgram(programName) {
 module.exports = {
     validator: {
         commitment: "processed",
-        accountsCluster: "https://api.devnet.solana.com",
+        accountsCluster: "https://api.devnet.trezoa.com",
         programs: [
             {
                 label: "MPL Hybrid Program",
@@ -42,14 +42,14 @@ module.exports = {
                 deployPath: getProgram("mpl_token_extras.so"),
             },
             {
-                label: "SPL Token 2022",
+                label: "TPL Token 2022",
                 programId: "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
-                deployPath: getProgram("spl_token_2022.so"),
+                deployPath: getProgram("tpl_token_2022.so"),
             },
         ],
         accounts: [
             {
-                label: "Metaplex Default RuleSet",
+                label: "Trezoaplex Default RuleSet",
                 accountId: "eBJLFYPxJmMGKuFwpDWkzxZeUrad92kZRC5BJLpzyT9",
                 executable: false,
             },

@@ -1,20 +1,20 @@
 import test from 'ava';
-import { generateSigner, publicKey } from '@metaplex-foundation/umi';
+import { generateSigner, publicKey } from '@trezoaplex-foundation/umi';
 import {
   createFungible,
   fetchDigitalAssetWithAssociatedToken,
   mintV1,
   TokenStandard,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   string,
   publicKey as publicKeySerializer,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   addCollectionPlugin,
   fetchAsset,
   transfer,
-} from '@metaplex-foundation/mpl-core';
+} from '@trezoaplex-foundation/tpl-core';
 import {
   buildPath,
   captureV2,
@@ -23,7 +23,7 @@ import {
   fetchRecipeV1,
   initEscrowV2,
   initRecipeV1,
-  MPL_HYBRID_PROGRAM_ID,
+  TPL_HYBRID_PROGRAM_ID,
   Path,
 } from '../../src';
 import { createCoreCollection, createUmi } from '../_setup';
@@ -54,7 +54,7 @@ test('it can swap tokens for an asset with reroll', async (t) => {
 
   await initEscrowV2(umi, {}).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);
@@ -75,7 +75,7 @@ test('it can swap tokens for an asset with reroll', async (t) => {
     }).sendAndConfirm(umi);
   }
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -200,7 +200,7 @@ test('it can swap tokens for an asset without reroll', async (t) => {
 
   await initEscrowV2(umi, {}).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);
@@ -221,7 +221,7 @@ test('it can swap tokens for an asset without reroll', async (t) => {
     }).sendAndConfirm(umi);
   }
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -316,7 +316,7 @@ test('it can swap tokens for an asset without reroll', async (t) => {
   t.is(assetAfter.owner, umi.identity.publicKey);
 
   // Make sure the URI has not changed.
-  t.is(assetAfter.uri, 'https://example.com/asset');
+  t.is(assetAfter.uri, 'https://exatple.com/asset');
 });
 
 test('it can swap tokens for an asset as UpdateDelegate with reroll', async (t) => {
@@ -345,7 +345,7 @@ test('it can swap tokens for an asset as UpdateDelegate with reroll', async (t) 
 
   await initEscrowV2(umi, {}).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);
@@ -366,7 +366,7 @@ test('it can swap tokens for an asset as UpdateDelegate with reroll', async (t) 
     }).sendAndConfirm(umi);
   }
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -480,7 +480,7 @@ test('it can swap tokens for an asset as UpdateDelegate without reroll', async (
 
   await initEscrowV2(umi, {}).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);
@@ -501,7 +501,7 @@ test('it can swap tokens for an asset as UpdateDelegate without reroll', async (
     }).sendAndConfirm(umi);
   }
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -585,7 +585,7 @@ test('it can swap tokens for an asset as UpdateDelegate without reroll', async (
   t.is(assetAfter.owner, umi.identity.publicKey);
 
   // Make sure the URI has not changed.
-  t.is(assetAfter.uri, 'https://example.com/asset');
+  t.is(assetAfter.uri, 'https://exatple.com/asset');
 });
 
 test('it cannot swap tokens for an asset with BlockCapture', async (t) => {
@@ -614,7 +614,7 @@ test('it cannot swap tokens for an asset with BlockCapture', async (t) => {
 
   await initEscrowV2(umi, {}).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);
@@ -635,7 +635,7 @@ test('it cannot swap tokens for an asset with BlockCapture', async (t) => {
     }).sendAndConfirm(umi);
   }
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -726,7 +726,7 @@ test('it can burn tokens for an asset with BurnOnCapture', async (t) => {
 
   await initEscrowV2(umi, {}).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(umi.identity.publicKey),
   ]);
@@ -747,7 +747,7 @@ test('it can burn tokens for an asset with BurnOnCapture', async (t) => {
     }).sendAndConfirm(umi);
   }
 
-  const recipe = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const recipe = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('recipe'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -832,5 +832,5 @@ test('it can burn tokens for an asset with BurnOnCapture', async (t) => {
   t.is(assetAfter.owner, umi.identity.publicKey);
 
   // Make sure the URI has not changed.
-  t.is(assetAfter.uri, 'https://example.com/asset');
+  t.is(assetAfter.uri, 'https://exatple.com/asset');
 });

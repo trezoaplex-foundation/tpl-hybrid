@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
-use solana_program::{program::invoke, program_pack::Pack};
-use spl_token::state::Account;
+use trezoa_program::{program::invoke, program_pack::Pack};
+use tpl_token::state::Account;
 
 use crate::error::MplHybridError;
 
@@ -17,7 +17,7 @@ pub fn create_associated_token_account<'info>(
             &payer.key(),
             &owner.key(),
             &mint.key(),
-            &spl_token::ID,
+            &tpl_token::ID,
         ),
         &[
             payer.clone(),
@@ -37,7 +37,7 @@ pub fn validate_token_account(
     mint: &Pubkey,
 ) -> Result<()> {
     let account_data = Account::unpack(&account.data.borrow())?;
-    if account.owner != &spl_token::ID {
+    if account.owner != &tpl_token::ID {
         return Err(MplHybridError::InvalidTokenAccount.into());
     } else if account_data.owner != *owner {
         return Err(MplHybridError::InvalidTokenAccountOwner.into());

@@ -1,20 +1,20 @@
 import test from 'ava';
-import { generateSigner, publicKey } from '@metaplex-foundation/umi';
+import { generateSigner, publicKey } from '@trezoaplex-foundation/umi';
 import {
   string,
   publicKey as publicKeySerializer,
-} from '@metaplex-foundation/umi/serializers';
-import { createFungible } from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/umi/serializers';
+import { createFungible } from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   findAssociatedTokenPda,
   SPL_ASSOCIATED_TOKEN_PROGRAM_ID,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import { createCoreCollection, createUmi } from '../_setup';
 import {
   EscrowV1,
   fetchEscrowV1,
   initEscrowV1,
-  MPL_HYBRID_PROGRAM_ID,
+  TPL_HYBRID_PROGRAM_ID,
   Path,
 } from '../../src';
 
@@ -35,7 +35,7 @@ test('it can initialize the escrow', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -95,7 +95,7 @@ test('it cannot use an invalid collection', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -130,7 +130,7 @@ test('it cannot use an invalid token mint', async (t) => {
   const { collection } = await createCoreCollection(umi);
   const tokenMint = generateSigner(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);
@@ -173,7 +173,7 @@ test('it cannot set min higher than max', async (t) => {
     mint: tokenMint,
   }).sendAndConfirm(umi);
 
-  const escrow = umi.eddsa.findPda(MPL_HYBRID_PROGRAM_ID, [
+  const escrow = umi.eddsa.findPda(TPL_HYBRID_PROGRAM_ID, [
     string({ size: 'variable' }).serialize('escrow'),
     publicKeySerializer().serialize(collection.publicKey),
   ]);

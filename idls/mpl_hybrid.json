@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
-  "name": "mpl_hybrid",
+  "name": "tpl_hybrid",
   "instructions": [
     {
       "name": "initRecipeV1",
@@ -257,7 +257,7 @@
           "isSigner": false
         },
         {
-          "name": "mplCore",
+          "name": "tplCore",
           "isMut": false,
           "isSigner": false
         },
@@ -348,7 +348,7 @@
           "isSigner": false
         },
         {
-          "name": "mplCore",
+          "name": "tplCore",
           "isMut": false,
           "isSigner": false
         },
@@ -434,7 +434,7 @@
           "isSigner": false
         },
         {
-          "name": "mplCore",
+          "name": "tplCore",
           "isMut": false,
           "isSigner": false
         },
@@ -525,7 +525,7 @@
           "isSigner": false
         },
         {
-          "name": "mplCore",
+          "name": "tplCore",
           "isMut": false,
           "isSigner": false
         },
@@ -710,7 +710,7 @@
           "isSigner": false
         },
         {
-          "name": "mplCore",
+          "name": "tplCore",
           "isMut": false,
           "isSigner": false
         },
@@ -1369,7 +1369,7 @@
     {
       "code": 6004,
       "name": "InvalidProjectFeeWallet",
-      "msg": "Invalid Project Fee Wallet"
+      "msg": "Invalid Trezoa Fee Wallet"
     },
     {
       "code": 6005,
@@ -1379,7 +1379,7 @@
     {
       "code": 6006,
       "name": "InvalidMplCore",
-      "msg": "Invalid MPL CORE Program Account"
+      "msg": "Invalid TPL CORE Program Account"
     },
     {
       "code": 6007,
@@ -1448,8 +1448,8 @@
     }
   ],
   "metadata": {
-    "address": "MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb",
-    "origin": "anchor",
+    "address": "TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb",
+    "origin": "trezoa",
     "binaryVersion": "0.29.0",
     "libVersion": "~0.29"
   }

@@ -30,6 +30,6 @@ pub struct NftDataV1 {
     pub bump: u8,
 }
 
-impl NftDataV1 {
+itpl NftDataV1 {
     pub const BASE_NFT_DATA_SIZE: usize = 8 + 32 + 32 + 32 + 4 + 4 + 8 + 8 + 8 + 8 + 8 + 8 + 2 + 1;
 }

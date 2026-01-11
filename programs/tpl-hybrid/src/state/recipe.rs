@@ -36,7 +36,7 @@ pub struct RecipeV1 {
     pub bump: u8,
 }
 
-impl RecipeV1 {
+itpl RecipeV1 {
     pub const BASE_RECIPE_SIZE: usize =
         8 + 32 + 32 + 32 + 32 + 4 + 4 + 8 + 8 + 8 + 8 + 8 + 8 + 8 + 8 + 2 + 1;
 }

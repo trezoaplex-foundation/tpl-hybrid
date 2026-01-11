@@ -6,7 +6,7 @@
  * @see https://github.com/metaplex-foundation/kinobi
  */
 
-import { Program, ProgramError } from '@metaplex-foundation/umi';
+import { Program, ProgramError } from '@trezoaplex-foundation/umi';
 
 type ProgramErrorConstructor = new (
   program: Program,
@@ -96,14 +96,14 @@ export class InvalidSlotHashError extends ProgramError {
 codeToErrorMap.set(0x1775, InvalidSlotHashError);
 nameToErrorMap.set('InvalidSlotHash', InvalidSlotHashError);
 
-/** InvalidMplCore: Invalid MPL CORE Program Account */
+/** InvalidMplCore: Invalid TPL CORE Program Account */
 export class InvalidMplCoreError extends ProgramError {
   override readonly name: string = 'InvalidMplCore';
 
   readonly code: number = 0x1776; // 6006
 
   constructor(program: Program, cause?: Error) {
-    super('Invalid MPL CORE Program Account', program, cause);
+    super('Invalid TPL CORE Program Account', program, cause);
   }
 }
 codeToErrorMap.set(0x1776, InvalidMplCoreError);

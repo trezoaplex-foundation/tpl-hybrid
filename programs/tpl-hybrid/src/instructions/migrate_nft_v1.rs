@@ -6,7 +6,7 @@ use anchor_lang::{
     accounts::{program::Program, signer::Signer, unchecked_account::UncheckedAccount},
     system_program::System,
 };
-use mpl_core::instructions::{TransferV1Cpi, TransferV1InstructionArgs};
+use tpl_core::instructions::{TransferV1Cpi, TransferV1InstructionArgs};
 
 #[derive(Accounts)]
 pub struct MigrateNftV1Ctx<'info> {
@@ -44,9 +44,9 @@ pub struct MigrateNftV1Ctx<'info> {
     collection: AccountInfo<'info>,
     /// CHECK: We check against constant
     #[account(
-        address = MPL_CORE @ MplHybridError::InvalidMplCore
+        address = TPL_CORE @ MplHybridError::InvalidMplCore
     )]
-    mpl_core: AccountInfo<'info>,
+    tpl_core: AccountInfo<'info>,
     system_program: Program<'info, System>,
 }
 
@@ -56,7 +56,7 @@ pub fn handler_migrate_nft_v1(ctx: Context<MigrateNftV1Ctx>) -> Result<()> {
     let escrow_old = &mut ctx.accounts.escrow_old;
     let collection = &mut ctx.accounts.collection;
     let asset = &mut ctx.accounts.asset;
-    let mpl_core = &mut ctx.accounts.mpl_core;
+    let tpl_core = &mut ctx.accounts.tpl_core;
     let system_program = &mut ctx.accounts.system_program;
 
     if escrow_new.authority != escrow_old.authority {
@@ -74,7 +74,7 @@ pub fn handler_migrate_nft_v1(ctx: Context<MigrateNftV1Ctx>) -> Result<()> {
 
     //create transfer instruction
     let transfer_nft_ix = TransferV1Cpi {
-        __program: &mpl_core.to_account_info(),
+        __program: &tpl_core.to_account_info(),
         asset: &asset.to_account_info(),
         collection: Some(collection_info),
         payer: &authority.to_account_info(),

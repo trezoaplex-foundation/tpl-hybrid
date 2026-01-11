@@ -2,8 +2,8 @@ use crate::error::MplHybridError;
 use crate::state::*;
 use anchor_lang::prelude::*;
 use anchor_spl::token::Mint;
-use mpl_core::accounts::BaseCollectionV1;
-use mpl_utils::resize_or_reallocate_account_raw;
+use tpl_core::accounts::BaseCollectionV1;
+use tpl_utils::resize_or_reallocate_account_raw;
 
 //need to add options
 #[derive(AnchorSerialize, AnchorDeserialize)]
