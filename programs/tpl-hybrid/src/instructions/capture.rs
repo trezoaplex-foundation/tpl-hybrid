@@ -260,27 +260,27 @@ pub fn handler_capture_v1(ctx: Context<CaptureV1Ctx>) -> Result<()> {
 
     token::transfer(transfer_fees_cpi_ctx, escrow.fee_amount)?;
 
-    //create protocol transfer fee sol instruction
+    //create protocol transfer fee trz instruction
     let sol_fee_ix = anchor_lang::trezoa_program::system_instruction::transfer(
         &owner.key(),
         &fee_sol_account.key(),
         get_protocol_fee()?,
     );
 
-    //invoke protocol the transfer fee sol instruction
+    //invoke protocol the transfer fee trz instruction
     invoke(
         &sol_fee_ix,
         &[owner.to_account_info(), fee_sol_account.to_account_info()],
     )?;
 
-    //create project transfer fee sol instruction for project
+    //create project transfer fee trz instruction for project
     let sol_fee_project_ix = anchor_lang::trezoa_program::system_instruction::transfer(
         &owner.key(),
         &fee_project_account.key(),
         escrow.sol_fee_amount,
     );
 
-    //invoke project the transfer fee sol instruction for project
+    //invoke project the transfer fee trz instruction for project
     invoke(
         &sol_fee_project_ix,
         &[

@@ -20,7 +20,7 @@ pub struct NftDataV1 {
     pub amount: u64,
     //8 the token fee for capturing the NFT
     pub fee_amount: u64,
-    //8 the sol fee for capturing the NFT
+    //8 the trz fee for capturing the NFT
     pub sol_fee_amount: u64,
     //8 the total number of swaps
     pub count: u64,
