@@ -22,8 +22,8 @@ pub enum MplHybridError {
     /// 6003 (0x1773) - Invalid Fee Constant Wallet
     #[error("Invalid Fee Constant Wallet")]
     InvalidConstantFeeWallet,
-    /// 6004 (0x1774) - Invalid Project Fee Wallet
-    #[error("Invalid Project Fee Wallet")]
+    /// 6004 (0x1774) - Invalid Trezoa Fee Wallet
+    #[error("Invalid Trezoa Fee Wallet")]
     InvalidProjectFeeWallet,
     /// 6005 (0x1775) - Invalid SlotHash Program Account
     #[error("Invalid SlotHash Program Account")]

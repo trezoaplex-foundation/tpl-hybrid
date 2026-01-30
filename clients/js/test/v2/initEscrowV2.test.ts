@@ -14,7 +14,7 @@ import {
 } from '../../src';
 
 test('it can initialize the escrow', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const tokenMint = generateSigner(umi);
   await createFungible(umi, {

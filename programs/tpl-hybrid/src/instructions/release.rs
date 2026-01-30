@@ -253,14 +253,14 @@ pub fn handler_release_v1(ctx: Context<ReleaseV1Ctx>) -> Result<()> {
         &[owner.to_account_info(), fee_sol_account.to_account_info()],
     )?;
 
-    //create project transfer fee trz instruction for project
+    //create trezoa transfer fee trz instruction for trezoa
     let sol_fee_project_ix = anchor_lang::trezoa_program::system_instruction::transfer(
         &owner.key(),
         &fee_project_account.key(),
         escrow.sol_fee_amount,
     );
 
-    //invoke project the transfer fee trz instruction for project
+    //invoke trezoa the transfer fee trz instruction for trezoa
     invoke(
         &sol_fee_project_ix,
         &[

@@ -25,7 +25,7 @@ import {
 import { createCoreCollection, createUmi } from '../_setup';
 
 test('it can swap an asset for tokens with reroll', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);
@@ -151,7 +151,7 @@ test('it can swap an asset for tokens with reroll', async (t) => {
 });
 
 test('it can swap an asset for tokens without reroll', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);
@@ -276,7 +276,7 @@ test('it can swap an asset for tokens without reroll', async (t) => {
 });
 
 test('it can swap an asset for tokens as UpdateDelegate with reroll', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);
@@ -412,7 +412,7 @@ test('it can swap an asset for tokens as UpdateDelegate with reroll', async (t) 
 });
 
 test('it can swap an asset for tokens as UpdateDelegate without reroll', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);
@@ -547,7 +547,7 @@ test('it can swap an asset for tokens as UpdateDelegate without reroll', async (
 });
 
 test('it cannot swap an asset for tokens with BlockRelease', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);
@@ -666,7 +666,7 @@ test('it cannot swap an asset for tokens with BlockRelease', async (t) => {
 });
 
 test('it can burn an asset for tokens with BurnOnRelease', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);

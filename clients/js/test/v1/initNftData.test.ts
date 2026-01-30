@@ -15,7 +15,7 @@ import {
 } from '../../src';
 
 test('it can initialize the nft data', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);
@@ -70,7 +70,7 @@ test('it can initialize the nft data', async (t) => {
 });
 
 test('it cannot use an invalid asset', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { collection } = await createCoreCollection(umi);
@@ -112,7 +112,7 @@ test('it cannot use an invalid asset', async (t) => {
 });
 
 test('it cannot use an invalid token mint', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);
@@ -146,7 +146,7 @@ test('it cannot use an invalid token mint', async (t) => {
 });
 
 test('it cannot set min higher than max', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);

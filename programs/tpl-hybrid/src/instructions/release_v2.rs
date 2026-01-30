@@ -310,14 +310,14 @@ pub fn handler_release_v2(ctx: Context<ReleaseV2Ctx>) -> Result<()> {
 
     token::transfer(transfer_fees_cpi_ctx, recipe.fee_amount_release)?;
 
-    //create project transfer fee trz instruction for project
+    //create trezoa transfer fee trz instruction for trezoa
     let sol_fee_project_ix = anchor_lang::trezoa_program::system_instruction::transfer(
         &owner.key(),
         &fee_project_account.key(),
         recipe.sol_fee_amount_release,
     );
 
-    //invoke project the transfer fee trz instruction for project
+    //invoke trezoa the transfer fee trz instruction for trezoa
     invoke(
         &sol_fee_project_ix,
         &[

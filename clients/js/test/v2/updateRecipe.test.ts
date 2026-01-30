@@ -26,7 +26,7 @@ import {
 import { createCoreCollection, createUmi } from '../_setup';
 
 test('it can update a recipe basic data', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);
@@ -154,7 +154,7 @@ test('it can update a recipe basic data', async (t) => {
 
 // recipe swap count is set at a starting value of 1 during recipe init. 1 === no swap
 test('it can update a recipe path if recipe swap count === 1', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);
@@ -283,7 +283,7 @@ test('it can update a recipe path if recipe swap count === 1', async (t) => {
 
 // recipe swap count is set at a starting value of 1 during recipe init. 1 === no swap
 test('it fails to update a recipe path if recipe swap count > 1', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);

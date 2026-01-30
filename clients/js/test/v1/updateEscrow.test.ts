@@ -29,7 +29,7 @@ import {
 import { createCoreCollection, createUmi } from '../_setup';
 
 test('it can update an escrow', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { collection } = await createCoreCollection(umi);
@@ -107,7 +107,7 @@ test('it can update an escrow', async (t) => {
 });
 
 test('it can update an escrow with a longer name and uri', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { collection } = await createCoreCollection(umi);
@@ -194,7 +194,7 @@ test('it can update an escrow with a longer name and uri', async (t) => {
 });
 
 test('it can update an escrow with a shortner name and uri', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { collection } = await createCoreCollection(umi);
@@ -282,7 +282,7 @@ test('it can update an escrow with a shortner name and uri', async (t) => {
 
 // escrow swap count is set at a starting value of 1 during escrow init. 1 === no swap
 test('it can update an escrow path if escrow swap count is at 1', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { collection } = await createCoreCollection(umi);
@@ -358,7 +358,7 @@ test('it can update an escrow path if escrow swap count is at 1', async (t) => {
 
 // escrow swap count is set at a starting value of 1 during escrow init. 1 === no swap
 test('it will fail to update escrow Path if escrow swap count is greater than 1', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { assets, collection } = await createCoreCollection(umi);

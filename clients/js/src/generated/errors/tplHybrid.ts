@@ -70,14 +70,14 @@ export class InvalidConstantFeeWalletError extends ProgramError {
 codeToErrorMap.set(0x1773, InvalidConstantFeeWalletError);
 nameToErrorMap.set('InvalidConstantFeeWallet', InvalidConstantFeeWalletError);
 
-/** InvalidProjectFeeWallet: Invalid Project Fee Wallet */
+/** InvalidProjectFeeWallet: Invalid Trezoa Fee Wallet */
 export class InvalidProjectFeeWalletError extends ProgramError {
   override readonly name: string = 'InvalidProjectFeeWallet';
 
   readonly code: number = 0x1774; // 6004
 
   constructor(program: Program, cause?: Error) {
-    super('Invalid Project Fee Wallet', program, cause);
+    super('Invalid Trezoa Fee Wallet', program, cause);
   }
 }
 codeToErrorMap.set(0x1774, InvalidProjectFeeWalletError);

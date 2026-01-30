@@ -19,7 +19,7 @@ import {
 } from '../../src';
 
 test('it can initialize the escrow', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { collection } = await createCoreCollection(umi);
@@ -79,7 +79,7 @@ test('it can initialize the escrow', async (t) => {
 });
 
 test('it cannot use an invalid collection', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const collection = generateSigner(umi);
@@ -124,7 +124,7 @@ test('it cannot use an invalid collection', async (t) => {
 });
 
 test('it cannot use an invalid token mint', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { collection } = await createCoreCollection(umi);
@@ -157,7 +157,7 @@ test('it cannot use an invalid token mint', async (t) => {
 });
 
 test('it cannot set min higher than max', async (t) => {
-  // Given a Umi instance using the project's plugin.
+  // Given a Umi instance using the trezoa's plugin.
   const umi = await createUmi();
   const feeLocation = generateSigner(umi);
   const { collection } = await createCoreCollection(umi);
