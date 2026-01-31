@@ -28,7 +28,7 @@ generateIdl({
     idlName: "mpl_hybrid",
     idlHook,
     binaryInstallDir,
-    programDir: path.join(programDir, "mpl-hybrid"),
+    programDir: path.join(programDir, "tpl-hybrid"),
     rustbin: {
         locked: true,
         versionRangeFallback: "0.27.0",

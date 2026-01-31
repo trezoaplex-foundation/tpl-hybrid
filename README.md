@@ -1,4 +1,4 @@
-# Mpl Hybrid
+# Tpl Hybrid
 
 The swap program powering TPL-404s on Trezoa and the TPL-404 protocol. A collaboration between Mutant Labs and Trezoaplex.
 
@@ -10,7 +10,7 @@ Read the full documentation [here](https://developers.trezoaplex.com/tpl-404)
 
 This trezoa contains the following programs:
 
-- [Mpl Hybrid](./programs/tpl-hybrid/README.md) `TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb`
+- [Tpl Hybrid](./programs/tpl-hybrid/README.md) `TPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb`
 
 You will need a Rust version compatible with BPF to compile the program, currently we recommend using Rust 1.75.0.
 

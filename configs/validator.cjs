@@ -12,12 +12,12 @@ module.exports = {
         accountsCluster: "https://api.devnet.trezoa.com",
         programs: [
             {
-                label: "MPL Hybrid Program",
+                label: "TPL Hybrid Program",
                 programId: "MPL4o4wMzndgh8T1NVDxELQCj5UQfYTYEkabX3wNKtb",
                 deployPath: getProgram("mpl_hybrid.so"),
             },
             {
-                label: "MPL Core",
+                label: "TPL Core",
                 programId: "CoREENxT6tW1HoK8ypY1SxRMZTcVPm7R94rH4PZNhX7d",
                 deployPath: getProgram("mpl_core_program.so"),
             },
